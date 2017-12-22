@@ -15,7 +15,7 @@ class SelectorException(Exception):
 
 
 #cmd_args = sys.argv[1:]  # Trim
-cmd_args = os.getenv('CRON_COMMAND') or sys.argv[1:]
+cmd_args = os.getenv('CRON_COMMAND')
 docker = Client(base_url='unix://var/run/docker.sock')
 SLACK_WEBHOOK_URL = os.getenv('SLACK_WEBHOOK_URL')
 
@@ -39,7 +39,7 @@ def run_command():
 
     print('Running command on container {}. Current time: {}'
           .format(container_id[:8], str(datetime.now())))
-    cmd_args = os.getenv('CRON_COMMAND') or sys.argv[1:]  # Trim the first argument (this program)
+    # cmd_args = os.getenv('CRON_COMMAND')  # Trim the first argument (this program)
     exec_id = docker.exec_create(container_id, cmd_args, tty=True).get('Id')
     output = docker.exec_start(exec_id)
     # result = subprocess.check_output(cmd_args, universal_newlines=True)
@@ -114,7 +114,8 @@ def run_schedule():
 
 
 if __name__ == "__main__":
-    print(sys.argv)
+    # print(sys.argv)
+    print(cmd_args)
     if not os.getenv('SELECTOR_LABEL'):
         print('ERROR: environment variable "SELECTOR_LABEL" is required.')
         exit(1)
