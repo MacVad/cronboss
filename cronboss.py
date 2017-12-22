@@ -39,7 +39,7 @@ def run_command():
 
     print('Running command on container {}. Current time: {}'
           .format(container_id[:8], str(datetime.now())))
-    cmd_args = sys.argv[1:]  # Trim the first argument (this program)
+    cmd_args = os.getenv('CRON_COMMAND') or sys.argv[1:]  # Trim the first argument (this program)
     exec_id = docker.exec_create(container_id, cmd_args, tty=True).get('Id')
     output = docker.exec_start(exec_id)
     # result = subprocess.check_output(cmd_args, universal_newlines=True)
