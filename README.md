@@ -21,6 +21,10 @@ The environment variables needed are:
 For example, if you want to run your job every 4 hours, you would set `INTERVAL=4` and `UNIT= hours`.
 If you would like to run your job every day at 6:00pm (server time) you would set `TIME=18:00`.
 
+An optional environmental variable for use when running under `docker-compose` are:
+
+    CRON_COMMAND : The command that is to be run in the container e.g. echo Hello World
+
 
 Example:
 
