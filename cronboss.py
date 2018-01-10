@@ -15,7 +15,7 @@ class SelectorException(Exception):
 
 
 #cmd_args = sys.argv[1:]  # Trim
-cmd_args = os.getenv('CRON_COMMAND')
+cmd_args = os.getenv('CRON_COMMAND') or sys.argv[1:]
 docker = Client(base_url='unix://var/run/docker.sock')
 SLACK_WEBHOOK_URL = os.getenv('SLACK_WEBHOOK_URL')
 
